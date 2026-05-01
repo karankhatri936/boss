@@ -22,7 +22,7 @@ int main() {
     printf("Command received: %s\n", command);
 
     // Step 2: Open COM Port (change COM3 if needed)
-    hSerial = CreateFile("COM6",
+    hSerial = CreateFile("COM3",
                          GENERIC_READ | GENERIC_WRITE,
                          0,
                          NULL,
@@ -67,6 +67,20 @@ int main() {
     // Step 5: Decide command and send to Arduino
     char *dataToSend;
 
+    if (strstr(command, "play song")) {
+        printf("Playing song on YouTube...\n");
+        system("start https://www.youtube.com/watch?v=KZGWfHdfWQs");
+    }
+    else if (strstr(command, "open google classroom")) {
+        printf("Opening Google Classroom...\n");
+        system("start https://classroom.google.com/h");
+    }
+    else if (strstr(command, "open flex")) {
+        printf("Opening Flex...\n");
+        system("start https://flexstudent.nu.edu.pk/Login");
+    }
+    else {
+        printf("No matching command\n");
 
     if (strstr(command, "light on") || strstr(command, "on the light")) {
         dataToSend = "LED_ON\n";
@@ -89,20 +103,6 @@ int main() {
         printf("Unknown command\n");
     }
 
-    if (strstr(command, "play song")) {
-        printf("Playing song on YouTube...\n");
-        system("start https://www.youtube.com/watch?v=KZGWfHdfWQs");
-    }
-    else if (strstr(command, "open google classroom")) {
-        printf("Opening Google Classroom...\n");
-        system("start https://classroom.google.com/h");
-    }
-    else if (strstr(command, "open flex")) {
-        printf("Opening Flex...\n");
-        system("start https://flexstudent.nu.edu.pk/Login");
-    }
-    else {
-        printf("No matching command\n");
     }
     // Step 6: Send data
     DWORD bytesWritten;
